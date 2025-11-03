@@ -293,7 +293,7 @@ function gnupg#decrypt(bufread)
     " This is a new file, so force the user to edit the recipient list if
     " they open a new file and public keys are preferred
     if (g:GPGPreferSymmetric == 0)
-        call gnupg#edit_recipients()
+        call gnupg#edit_recipients(0)
     endif
 
     return
@@ -669,11 +669,11 @@ function gnupg#view_recipients()
   call s:GPGDebug(3, "<<<<<<<< Leaving gnupg#view_recipients()")
 endfunction
 
-" Function: gnupg#edit_recipients() {{{2
+" Function: gnupg#edit_recipients(to_open) {{{2
 "
 " create a scratch buffer with all recipients to add/remove recipients
 "
-function gnupg#edit_recipients()
+function gnupg#edit_recipients(to_open)
   call s:GPGDebug(3, ">>>>>>>> Entering gnupg#edit_recipients()")
 
   if s:unencrypted()
@@ -753,6 +753,10 @@ function gnupg#edit_recipients()
   endif
 
   call s:GPGDebug(3, "<<<<<<<< Leaving gnupg#edit_recipients()")
+
+  if (exists('g:GPGDefaultRecipients') && a:to_open == 0)
+    execute ':q'
+  endif
 endfunction
 
 " Function: s:GPGFinishRecipientsBuffer() {{{2

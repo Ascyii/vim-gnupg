@@ -55,7 +55,7 @@ highlight default link GPGHighlightUnknownRecipient ErrorMsg
 " Section: Commands {{{1
 
 command! GPGViewRecipients call gnupg#view_recipients()
-command! GPGEditRecipients call gnupg#edit_recipients()
+command! GPGEditRecipients call gnupg#edit_recipients(1)
 command! GPGViewOptions call gnupg#view_options()
 command! GPGEditOptions call gnupg#edit_options()
 
